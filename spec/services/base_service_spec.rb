@@ -10,4 +10,12 @@ RSpec.describe BaseService do
     end
   end
 
+  describe "#geocode_service" do
+    it 'returns a response' do
+      service = BaseService.geocode_service
+
+      expect(service).to be_an Object
+    end
+  end
+
 end
