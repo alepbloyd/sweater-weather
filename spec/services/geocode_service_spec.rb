@@ -4,7 +4,7 @@ RSpec.describe GeocodeService do
 
   context "#get_lat_long" do
 
-    it 'returns latitude and longitude for searched location' do
+    it 'returns latitude and longitude for searched location', :vcr do
       response = GeocodeService.get_lat_long("washington,dc")
 
       expect(response).to be_a(Hash)
