@@ -5,11 +5,19 @@ class WeatherFacade
 
     current_weather = CurrentWeather.new(json[:current])
 
+    five_day_forecast = []
+
     json[:daily][0..4].map do |day|
-      DailyWeather.new(day)
+      five_day_forecast << DailyWeather.new(day)
     end
 
-    # daily_weather = DailyWeather.new()
+    eight_hour_forecast = []
+
+    json[:hourly][0..7].map do |hour|
+      eight_hour_forecast << HourlyWeather.new(hour)
+    end
+
+    [current_weather,five_day_forecast,eight_hour_forecast]
   end
 
 end
