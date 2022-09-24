@@ -8,6 +8,9 @@ RSpec.describe WeatherFacade do
     expect(weather).to be_an(Array)
     expect(weather.count).to eq(3)
 
+    expect(weather.first.count).to eq(1)
+    expect(weather.second.count).to eq(5)
+    expect(weather.third.count).to eq(8)
   end
 
 end

@@ -17,7 +17,7 @@ class WeatherFacade
       eight_hour_forecast << HourlyWeather.new(hour)
     end
 
-    [current_weather,five_day_forecast,eight_hour_forecast]
+    [[current_weather],five_day_forecast,eight_hour_forecast]
   end
 
 end
