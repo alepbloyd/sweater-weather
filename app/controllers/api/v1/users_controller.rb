@@ -1,7 +1,6 @@
 class Api::V1::UsersController < ApplicationController
 
   def create
-    api_key = SecureRandom.hex(15)
     user = User.new(user_params)
     if user.save
       render json: UserSerializer.new(user).response
