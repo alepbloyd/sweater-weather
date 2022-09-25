@@ -3,9 +3,9 @@ class Api::V1::UsersController < ApplicationController
   def create
     user = User.new(user_params)
     if user.save
-      render json: UserSerializer.new(user).response
-    else
-      render :json => {:error => "Oops user creation failed"}.to_json, :status => 400 
+      render json: UserSerializer.new(user).response, status: 201
+    elsif User.exists?(email: user_params[:email])
+      render :json => {:error => "Oops user creation failed (email taken)"}.to_json, :status => 400 
     end
   end
 
