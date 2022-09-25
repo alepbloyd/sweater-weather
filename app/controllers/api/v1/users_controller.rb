@@ -4,10 +4,12 @@ class Api::V1::UsersController < ApplicationController
     user = User.new(user_params)
     if user.save
       render json: UserSerializer.new(user).response, status: 201
-    elsif User.exists?(email: user_params[:email])
+    elsif User.exists?(email: user_params[:email].downcase)
       render :json => {:error => "Oops user creation failed (email taken)"}.to_json, :status => 400 
     elsif user_params[:password] != user_params[:password_confirmation]
       render :json => {:error => "Oops user creation failed (password and confirmation mismatch"}.to_json, :status => 400
+    elsif EmailValidator.valid?(user_params[:email]) == false
+      render :json => {:error => "Oops user creation failed (bad email)"}.to_json, :status => 400
     end
   end
 

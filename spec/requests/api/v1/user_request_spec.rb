@@ -88,4 +88,27 @@ describe 'user API' do
     expect(data[:error]).to eq("Oops user creation failed (password and confirmation mismatch")
   end
 
+  it 'does not create a new user if their email format is invalid' do
+    expect(User.all.count).to eq(0)
+
+    user_params = {
+      "email": "OopsNotAnEmailAddress",
+      "password": "test123",
+      "password_confirmation": "test123"
+    }
+
+    headers = {"CONTENT_TYPE" => "application/json"}
+    
+    post "/api/v1/users", headers: headers, params: JSON.generate(user: user_params)
+
+    expect(response).to_not be_successful
+
+    expect(User.all.count).to eq(0)
+
+    data = JSON.parse(response.body, symbolize_names: true)
+
+    expect(data).to have_key(:error)
+    expect(data[:error]).to eq("Oops user creation failed (bad email)")
+  end
+
 end
