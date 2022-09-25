@@ -1,6 +1,28 @@
 class Api::V1::UsersController < ApplicationController
 
   def create
-
+    api_key = SecureRandom.hex(15)
+    user = User.new(user_params)
+    if user.save
+      render json: UserSerializer.new(user).response
+    else
+      render :json => {:error => "Oops user creation failed"}.to_json, :status => 400 
+    end
   end
+
+  def login
+    user = User.find_by(email: user_params[:email])
+    if user.authenticate(user_params[:password])
+      session[:user_id] = user.id
+    else
+
+    end
+  end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:email, :password, :password_confirmation)
+  end
+
 end

@@ -11,11 +11,14 @@ describe 'user API' do
 
     headers = {"CONTENT_TYPE" => "application/json"}
     
-    x = post "/api/v1/users", headers: headers, params: JSON.generate(user: user_params)
+    post "/api/v1/users", headers: headers, params: JSON.generate(user: user_params)
 
     created_user = User.last
 
-    # created_user = User.last
+    data = JSON.parse(response.body, symbolize_names: true)
+
+    # require 'pry'; binding.pry 
+
   end
 
 end
