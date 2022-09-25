@@ -10,6 +10,8 @@ class Api::V1::UsersController < ApplicationController
       render :json => {:error => "Oops user creation failed (password and confirmation mismatch"}.to_json, :status => 400
     elsif EmailValidator.valid?(user_params[:email]) == false
       render :json => {:error => "Oops user creation failed (bad email)"}.to_json, :status => 400
+    else
+      render :json => {:error => "I honestly don't know what you did to break it this badly"}.to_json, :status => 400
     end
   end
 
