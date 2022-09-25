@@ -15,15 +15,6 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
-  def login
-    user = User.find_by(email: user_params[:email])
-    if user.authenticate(user_params[:password])
-      session[:user_id] = user.id
-    else
-
-    end
-  end
-
   private
 
   def user_params
