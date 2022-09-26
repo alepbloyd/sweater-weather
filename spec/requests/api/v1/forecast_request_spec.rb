@@ -61,7 +61,7 @@ describe 'forecast API' do
       expect(day[:sunset]).to be_a(String)
 
       expect(day).to have_key(:max_temp)
-      expect(day[:max_temp]).to be_a(Float)
+      expect(day[:max_temp].to_f).to be_a(Float)
 
       expect(day).to have_key(:min_temp)
       expect(day[:min_temp]).to be_a(Float)
