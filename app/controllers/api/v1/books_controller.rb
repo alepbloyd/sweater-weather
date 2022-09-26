@@ -11,7 +11,7 @@ class Api::V1::BooksController < ApplicationController
 
     forecast = WeatherFacade.get_weather_forecast(latlong.first,latlong.last)
 
-    render json: BookSearchSerializer.new(params[:location],result_count,books,forecast)
+    render json: BookSearchSerializer.new(params[:location],result_count,books,forecast).response
     # require 'pry'; binding.pry 
 
     # book_results = LibraryFacade.book_search
