@@ -8,4 +8,8 @@ class BaseService
     Faraday.new(url: "https://www.mapquestapi.com/geocoding/v1/address/")
   end
 
+  def self.route_service
+    Faraday.new(url: "http://www.mapquestapi.com/directions/v2/route")
+  end
+
 end
