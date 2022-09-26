@@ -83,7 +83,7 @@ describe 'forecast API' do
       expect(hour[:conditions]).to be_a(String)
 
       expect(hour).to have_key(:temp)
-      expect(hour[:temp]).to be_a(Float)
+      expect(hour[:temp].to_f).to be_a(Float)
 
       expect(hour).to have_key(:icon)
       expect(hour[:icon]).to be_a(String)
