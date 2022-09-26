@@ -34,7 +34,7 @@ describe 'roadtrip API' do
 
     data = JSON.parse(response.body, symbolize_names: true)[:data]
 
-    require 'pry'; binding.pry 
+    # require 'pry'; binding.pry 
 
     # expect(data).to be_a Hash
 
