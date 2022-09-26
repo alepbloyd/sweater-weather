@@ -7,6 +7,8 @@ class LibraryFacade
       Book.new(book)
     end
 
+    # require 'pry'; binding.pry 
+
     [json[:numFound],books]
   end
 
