@@ -44,4 +44,64 @@ describe 'session API' do
     expect(data[:attributes][:api_key]).to be_a(String)
   end
 
+  it 'returns an error if email does not exist in db' do
+    expect(User.all.count).to eq(0)
+
+    user_params = {
+      "email": "whatever@example.com",
+      "password": "test123",
+      "password_confirmation": "test123"
+    }
+
+    headers = {"CONTENT_TYPE" => "application/json"}
+    
+    post "/api/v1/users", headers: headers, params: JSON.generate(user: user_params)
+
+    expect(User.all.count).to eq(1)
+
+    session_params = {
+      "email": "whateverWHATEVER@example.com",
+      "password": "test123"
+    }
+
+    post "/api/v1/sessions", headers: headers, params: JSON.generate(session: session_params)
+
+    expect(response).to_not be_successful
+
+    data = JSON.parse(response.body, symbolize_names: true)
+
+    expect(data).to have_key(:error)
+    expect(data[:error]).to eq("Login failed")
+  end
+
+  it 'returns an error if username and password do not match' do
+    expect(User.all.count).to eq(0)
+
+    user_params = {
+      "email": "whatever@example.com",
+      "password": "test123",
+      "password_confirmation": "test123"
+    }
+
+    headers = {"CONTENT_TYPE" => "application/json"}
+    
+    post "/api/v1/users", headers: headers, params: JSON.generate(user: user_params)
+
+    expect(User.all.count).to eq(1)
+
+    session_params = {
+      "email": "whatever@example.com",
+      "password": "test1234567890"
+    }
+
+    post "/api/v1/sessions", headers: headers, params: JSON.generate(session: session_params)
+
+    expect(response).to_not be_successful
+
+    data = JSON.parse(response.body, symbolize_names: true)
+
+    expect(data).to have_key(:error)
+    expect(data[:error]).to eq("Login failed")
+  end
+
 end

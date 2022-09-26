@@ -6,7 +6,7 @@ class Api::V1::SessionsController < ApplicationController
     if user.present? && user.authenticate(session_params[:password])
       render json: UserSerializer.new(user).response, status: 200
     else
-
+      render :json => {:error => "Login failed"}, :status => 400
     end
 
   end
