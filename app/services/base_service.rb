@@ -12,4 +12,8 @@ class BaseService
     Faraday.new(url: "http://www.mapquestapi.com/directions/v2/route")
   end
 
+  def self.book_search
+    Faraday.new(url: "http://openlibrary.org/search.json")
+  end
+
 end
