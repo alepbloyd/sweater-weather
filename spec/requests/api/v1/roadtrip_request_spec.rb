@@ -64,7 +64,7 @@ describe 'roadtrip API' do
     expect(data[:attributes][:weather_at_eta][:conditions]).to be_a(String)
   end
 
-  it 'returns an error if api key left blank', :vcr do
+  it 'returns an error if api key left blank' do
     roadtrip_params = {
       "origin": "Washington,DC",
       "destination": "Richmond,VA",
@@ -90,6 +90,20 @@ describe 'roadtrip API' do
     post "/api/v1/road_trip", headers: headers, params: JSON.generate(roadtrip_params: roadtrip_params)
 
     expect(response).to_not be_successful
+  end
+
+  it 'returns daily forecast for arrival day if no matching hourly forecast found' do
+
+    roadtrip_params = {
+      "origin": "Washington,DC",
+      "destination": "Seattle,WA",
+      "api_key": @api_key
+    }
+
+    headers = {"CONTENT_TYPE" => "application/json"}
+    
+    post "/api/v1/road_trip", headers: headers, params: JSON.generate(roadtrip_params: roadtrip_params)
+
   end
 
 end
