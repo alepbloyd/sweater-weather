@@ -22,7 +22,7 @@ describe 'roadtrip API' do
 
     roadtrip_params = {
       "origin": "Washington,DC",
-      "destination": "Boston,MA",
+      "destination": "Richmond,VA",
       "api_key": @api_key
     }
 
@@ -49,7 +49,7 @@ describe 'roadtrip API' do
     expect(data[:attributes][:start_city]).to eq("Washington,DC")
 
     expect(data[:attributes]).to have_key(:end_city)
-    expect(data[:attributes][:end_city]).to eq("Boston,MA")
+    expect(data[:attributes][:end_city]).to eq("Richmond,VA")
 
     expect(data[:attributes]).to have_key(:travel_time)
     expect(data[:attributes][:travel_time]).to be_a(String)
@@ -62,8 +62,34 @@ describe 'roadtrip API' do
 
     expect(data[:attributes][:weather_at_eta]).to have_key(:conditions)
     expect(data[:attributes][:weather_at_eta][:conditions]).to be_a(String)
+  end
 
+  it 'returns an error if api key left blank', :vcr do
+    roadtrip_params = {
+      "origin": "Washington,DC",
+      "destination": "Richmond,VA",
+      "api_key": ""
+    }
 
+    headers = {"CONTENT_TYPE" => "application/json"}
+    
+    post "/api/v1/road_trip", headers: headers, params: JSON.generate(roadtrip_params: roadtrip_params)
+
+    expect(response).to_not be_successful
+  end
+
+  it 'returns an error if given a bad api key' do
+    roadtrip_params = {
+      "origin": "Washington,DC",
+      "destination": "Richmond,VA",
+      "api_key": "saltandvinegarchips"
+    }
+
+    headers = {"CONTENT_TYPE" => "application/json"}
+    
+    post "/api/v1/road_trip", headers: headers, params: JSON.generate(roadtrip_params: roadtrip_params)
+
+    expect(response).to_not be_successful
   end
 
 end

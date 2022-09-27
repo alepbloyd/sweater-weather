@@ -17,6 +17,8 @@ describe 'session API' do
 
     expect(User.all.count).to eq(1)
 
+    # require 'pry'; binding.pry 
+
     session_params = {
       "email": "whatever@example.com",
       "password": "test123"
@@ -39,6 +41,8 @@ describe 'session API' do
 
     expect(data[:attributes]).to have_key(:email)
     expect(data[:attributes][:email]).to eq("whatever@example.com")
+
+    # require 'pry'; binding.pry 
 
     expect(data[:attributes]).to have_key(:api_key)
     expect(data[:attributes][:api_key]).to be_a(String)

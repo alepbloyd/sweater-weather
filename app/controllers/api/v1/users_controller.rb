@@ -1,8 +1,12 @@
 class Api::V1::UsersController < ApplicationController
 
   def create
+    # require 'pry'; binding.pry 
+
     user = User.new(user_params)
+
     if user.save
+      user.update(api_key: SecureRandom.hex)
       render json: UserSerializer.new(user).response, status: 201
     elsif User.exists?(email: user_params[:email].downcase)
       render :json => {:error => "Oops user creation failed (email taken)"}.to_json, :status => 400 
