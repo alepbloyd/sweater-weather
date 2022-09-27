@@ -1,16 +1,10 @@
 class Api::V1::RoadtripController < ApplicationController
 
   def create
-    # require 'pry'; binding.pry
-    roadtrip = Roadtrip.new(params)
+    #need api key check still
+    roadtrip = RoadtripFacade.road_trip(params[:roadtrip_params][:origin],params[:roadtrip_params][:destination])
 
-    render json: RoadtripSerializer.new(params).response, status: 200
+    render json: RoadtripSerializer.new(roadtrip).response, status: 200
   end
-
-  private
-
-  # def roadtrip_params
-  #   params.require(:roadtrip).permit(:origin)
-  # end
 
 end

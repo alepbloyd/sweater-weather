@@ -1,7 +1,11 @@
 class RoadtripSerializer
 
-  def initialize(roadtrip_params)
-    # require 'pry'; binding.pry 
+  def initialize(roadtrip)
+    @start_city = roadtrip.start_city
+    @end_city = roadtrip.end_city
+    @travel_time = roadtrip.travel_time
+    @temperature = roadtrip.temperature
+    @conditions = roadtrip.conditions
   end
 
   def response
