@@ -6,7 +6,7 @@ Rails.application.routes.draw do
       get "/forecast", to: "forecasts#show"
       post "/users", to: "users#create"
       post "/sessions", to: "sessions#create"
-      post "/road_trip", to: "roadtrip#create"
+      post "/road-trip", to: "roadtrip#create"
       get "/book-search", to: "books#search"
     end
   end
