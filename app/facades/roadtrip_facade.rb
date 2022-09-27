@@ -21,6 +21,11 @@ class RoadtripFacade
 
     forecast = hourly_forecasts.select { |hourly_forecast| hourly_forecast.time == arrival_time_hour }
 
+    # if forecast == nil
+
+    # end
+    # require 'pry'; binding.pry 
+
     Roadtrip.new(start_city,end_city,travel_time,forecast.first)
   end
 

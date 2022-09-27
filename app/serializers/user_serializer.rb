@@ -3,7 +3,7 @@ class UserSerializer
   def initialize(data)
     @id = data.id
     @email = data.email.downcase
-    @api_key = SecureRandom.hex(15)
+    @api_key = data.api_key
   end
 
   def response
