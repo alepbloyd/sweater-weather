@@ -11,7 +11,8 @@ class RoadtripSerializer
   def response
     {
       "data": {
-        "id": "roadtrip",
+        "id": nil,
+        "type": "roadtrip",
         "attributes": {
           "start_city": @start_city,
           "end_city": @end_city,
